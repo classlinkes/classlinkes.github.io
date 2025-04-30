@@ -1591,6 +1591,18 @@
             max-width: 90vw;
             pointer-events: none;
         }
+        .fade-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: black;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    z-index: 99;
+    pointer-events: none;
+}
     </style>
 </head>
 <body>
@@ -1606,7 +1618,6 @@
 
     <script>
     function openApp(path) {
-        // Fade to black
         const overlay = document.getElementById('fade');
         if (!overlay) return;
 
@@ -1621,7 +1632,7 @@
             } else {
                 alert("Popup blocked!");
             }
-        }, 600); // match fade time
+        }, 600);
     }
 <\/script>
 </body>
