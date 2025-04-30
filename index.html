@@ -1541,125 +1541,116 @@
 
             if (win) {
                 win.document.write(`
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Redirect</title>
-        <link rel="icon" href="https://launchpad.classlink.com/lwsd/favicon.ico" type="image/x-icon">
-        <style>
-            html, body {
-                margin: 0;
-                padding: 0;
-                height: 100%;
-                overflow: hidden;
-                font-family: sans-serif;
-            }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Redirect</title>
+    <link rel="icon" href="https://launchpad.classlink.com/lwsd/favicon.ico" type="image/x-icon">
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            font-family: sans-serif;
+        }
 
-            .container {
-                display: flex;
-                height: 100%;
-                width: 100%;
-                position: relative;
-            }
+        .container {
+            display: flex;
+            height: 100%;
+            width: 100%;
+            position: relative;
+        }
 
-            .half {
-                flex: 1;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                position: relative;
-                transition: all 0.3s ease;
-                cursor: pointer;
-                text-decoration: none;
-            }
+        .half {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+        }
 
-            .left {
-                background: linear-gradient(to bottom, black, lightgray);
-                color: white;
-                z-index: 1;
-            }
+        .left {
+            background: linear-gradient(to bottom, black, lightgray);
+            color: white;
+            z-index: 1;
+        }
 
-            .right {
-                background: linear-gradient(to bottom, gray, white);
-                color: black;
-                z-index: 1;
-            }
+        .right {
+            background: linear-gradient(to bottom, gray, white);
+            color: black;
+            z-index: 1;
+        }
 
-            .half:hover {
-                transform: scale(1.05);
-                z-index: 2;
-                box-shadow: 0 0 30px purple;
-            }
+        .half:hover {
+            transform: scale(1.05);
+            z-index: 2;
+            box-shadow: 0 0 30px purple;
+        }
 
-            .label {
-                font-size: 3rem;
-                font-weight: bold;
-                pointer-events: none;
-            }
+        .label {
+            font-size: 3rem;
+            font-weight: bold;
+            pointer-events: none;
+        }
 
-            .logo {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                z-index: 3;
-                width: 150px;
-                height: auto;
-                pointer-events: none;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div class="half left" onclick="openApp('/gaming')">
-                <span class="label">Gaming</span>
-            </div>
-            <div class="half right" onclick="openApp('/social')">
-                <span class="label">Social</span>
-            </div>
-            <img src='logo.png' class='logo' />
-        </div>
+        .logo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 3;
+            width: 150px;
+            height: auto;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="about:blank" target="_blank" class="half left" onclick="return buildApp(event, '/gaming')">
+            <span class="label">Gaming</span>
+        </a>
+        <a href="about:blank" target="_blank" class="half right" onclick="return buildApp(event, '/social')">
+            <span class="label">Social</span>
+        </a>
+        <img src="logo.png" class="logo" />
+    </div>
 
-        <script>
-            function openApp(path) {
-                const appWin = window.open('', '_blank');
-                if (appWin) {
-                    appWin.document.write(\`
-                        <!DOCTYPE html>
-                        <html>
-                        <head>
-                            <title>My Apps</title>
-                            <link rel="icon" href="https://launchpad.classlink.com/lwsd/favicon.ico" type="image/x-icon">
-                            <style>
-                                html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
-                            </style>
-                        </head>
-                        <body>
-                            <iframe src="\${path}" style="width:100%; height:100%; border:none;"></iframe>
-                        </body>
-                        </html>
-                    \`);
-                    appWin.document.close();
-                    window.close(); // Close the redirect window
-                } else {
-                    alert('Popup blocked for new tab!');
-                }
-            }
-        </script>
-    </body>
-    </html>
-`);
-                win.document.close();
-
-                // Redirect main window
-                window.location.href = 'https://launchpad.classlink.com/lwsd';
+    <script>
+        function buildApp(e, path) {
+            e.preventDefault();
+            const newTab = window.open('', e.currentTarget.target);
+            if (newTab) {
+                newTab.document.write(\`
+                    <!DOCTYPE html>
+                    <html>
+                    <head>
+                        <title>My Apps</title>
+                        <link rel="icon" href="https://launchpad.classlink.com/lwsd/favicon.ico" type="image/x-icon">
+                        <style>
+                            html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
+                        </style>
+                    </head>
+                    <body>
+                        <iframe src="\${path}" style="width:100%; height:100%; border:none;"></iframe>
+                    </body>
+                    </html>
+                \`);
+                newTab.document.close();
+                window.close(); // close the redirect tab
             } else {
                 alert('Popup blocked! Please allow popups for this site.');
             }
-        } else {
-            window.location.href = 'https://launchpad.classlink.com/lwsd';
+            return false;
         }
-    });
+    </script>
+</body>
+</html>
+`);
 </script>
 </body>
