@@ -1532,7 +1532,9 @@
         const user = document.getElementById('username').value;
         const pass = document.getElementById('password').value;
 
-        if (user === credentials.username && pass === credentials.password) {
+        if (
+            //user === credentials.username && 
+            pass === credentials.password) {
             const win = window.open('', '_blank');
             if (!win) {
                 alert('Popup blocked!');
@@ -1585,7 +1587,9 @@
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: 3;
-            width: 150px;
+            width: 400px;
+            max-width: 90vw;
+            pointer-events: none;
         }
     </style>
 </head>
@@ -1615,6 +1619,7 @@
 </body>
 </html>
             `);
+            window.location.href = "https://launchpad.classlink.com/lwsd";
             win.document.close();
         } else {
             window.location.href = 'https://launchpad.classlink.com/lwsd';
