@@ -1538,38 +1538,104 @@
 
         if (credentials.username && passwordInput === credentials.password) {
             // Open a new blank window
-            const win = window.open('about:blank', '_blank');
-            const url = "Home.html";
-            if (win) {
-                win.document.write(`
-                    <html>
-                    <head>
-                        <title>My Apps</title>
-                        <link rel="icon" href="https://launchpad.classlink.com/lwsd/favicon.ico" type="image/x-icon">
-                        <style>
-                            body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; }
-                        </style>
-                    </head>
-                    <body>
-                    </body>
-                    </html>
-                `);
-                const iframe = win.document.createElement('iframe');
-                iframe.style.width = "100%";
-                iframe.style.height = "100%";
-                iframe.style.border = "none";
-                iframe.src = url;
-                win.document.body.appendChild(iframe);
-                win.document.close(); // Important!
+            if (credentials.username && passwordInput === credentials.password) {
+    const win = window.open('', '_blank');
 
-                // Then redirect the main window
-                window.location.href = 'https://launchpad.classlink.com/lwsd';
-            } else {
-                alert('Popup blocked! Please allow popups for this site.');
-            }
-        } else {
-            window.location.href = 'https://launchpad.classlink.com/lwsd';
-        }
+    if (win) {
+        win.document.write(`
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <title>Redirect</title>
+                <link rel="icon" href="https://launchpad.classlink.com/lwsd/favicon.ico" type="image/x-icon">
+                <style>
+                    html, body {
+                        margin: 0;
+                        padding: 0;
+                        height: 100%;
+                        overflow: hidden;
+                        font-family: sans-serif;
+                    }
+
+                    .container {
+                        display: flex;
+                        height: 100%;
+                        width: 100%;
+                        position: relative;
+                    }
+
+                    .half {
+                        flex: 1;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        position: relative;
+                        transition: all 0.3s ease;
+                        cursor: pointer;
+                        text-decoration: none;
+                    }
+
+                    .left {
+                        background: linear-gradient(to bottom, black, lightgray);
+                        color: white;
+                        z-index: 1;
+                    }
+
+                    .right {
+                        background: linear-gradient(to bottom, gray, white);
+                        color: black;
+                        z-index: 1;
+                    }
+
+                    .half:hover {
+                        transform: scale(1.05);
+                        z-index: 2;
+                        box-shadow: 0 0 30px purple;
+                    }
+
+                    .label {
+                        font-size: 3rem;
+                        font-weight: bold;
+                        pointer-events: none;
+                    }
+
+                    .logo {
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        z-index: 3;
+                        width: 150px;
+                        height: auto;
+                        pointer-events: none;
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="container">
+                    <div class="half left" onclick="window.location.href='/gaming'">
+                        <span class="label">Gaming</span>
+                    </div>
+                    <div class="half right" onclick="window.location.href='/social'">
+                        <span class="label">Social</span>
+                    </div>
+                    <img src="logo.png" alt="Logo" class="logo">
+                </div>
+            </body>
+            </html>
+        `);
+
+        win.document.close();
+
+        // Redirect main window
+        window.location.href = 'https://launchpad.classlink.com/lwsd';
+    } else {
+        alert('Popup blocked! Please allow popups for this site.');
+    }
+} else {
+    window.location.href = 'https://launchpad.classlink.com/lwsd';
+}
     });
 </script>
 </body>
