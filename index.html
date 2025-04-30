@@ -1607,34 +1607,37 @@
 </head>
 <body>
     <div class="container">
-        <div class="half left" onclick="openApp('/gaming')">
-            <span class="label">Gaming</span>
-        </div>
-        <div class="half right" onclick="openApp('/social')">
-            <span class="label">Social</span>
-        </div>
+        <div class="half left" id="gaming">
+  <span class="label">Gaming</span>
+</div>
+<div class="half right" id="social">
+  <span class="label">Social</span>
+</div>
         <img src="logo.png" class="logo">
         <div class="fade-overlay" id="fade"></div>
     </div>
 
     <script>
-    window.openApp = function(path) {
-        const overlay = document.getElementById('fade');
-        if (!overlay) return;
+    function openApp(path) {
+    const overlay = document.getElementById('fade');
+    overlay.classList.add('fade-in');
 
-        overlay.classList.add('fade-in');
+    setTimeout(() => {
+        const appWin = window.open('', '_blank');
+        if (appWin) {
+            appWin.document.write('<!DOCTYPE html><html><head><title>My Apps</title><style>html,body{margin:0;padding:0;height:100%;overflow:hidden;background:black;animation:fadeIn 1s ease forwards;}@keyframes fadeIn{from{opacity:0}to{opacity:1}}</style></head><body><iframe src="' + path + '" style="width:100%;height:100%;border:none;"></iframe></body></html>');
+            appWin.document.close();
+            window.close();
+        } else {
+            alert('Popup blocked!');
+        }
+    }, 600);
+}
 
-        setTimeout(function () {
-            const appWin = window.open('', '_blank');
-            if (appWin) {
-                appWin.document.write('<!DOCTYPE html><html><head><title>My Apps</title><style>html,body{margin:0;padding:0;height:100%;overflow:hidden;background:black;animation:fadeIn 1s ease forwards;}@keyframes fadeIn{from{opacity:0}to{opacity:1}}</style></head><body><iframe src="' + path + '" style="width:100%;height:100%;border:none;"></iframe></body></html>');
-                appWin.document.close();
-                window.close();
-            } else {
-                alert("Popup blocked!");
-            }
-        }, 600);
-    };
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('gaming').addEventListener('click', () => openApp('/gaming'));
+    document.getElementById('social').addEventListener('click', () => openApp('/social'));
+});
 <\/script>
 </body>
 </html>
