@@ -1606,14 +1606,19 @@
 
     <script>
     function openApp(path) {
-        const appWin = window.open('', '_blank');
-        if (appWin) {
-            appWin.document.write('<!DOCTYPE html><html><head><title>My Apps</title><style>html,body{margin:0;padding:0;height:100%;overflow:hidden;}</style></head><body><iframe src="' + path + '" style="width:100%;height:100%;border:none;"></iframe></body></html>');
-            appWin.document.close();
-            window.close();
-        } else {
-            alert('Popup blocked!');
-        }
+        const overlay = document.getElementById('fade');
+        overlay.classList.add('fade-in');
+
+        setTimeout(() => {
+            const appWin = window.open('', '_blank');
+            if (appWin) {
+                appWin.document.write('<!DOCTYPE html><html><head><title>My Apps</title><style>html,body{margin:0;padding:0;height:100%;overflow:hidden;background:black;animation:fadeIn 1s ease forwards;}@keyframes fadeIn{from{opacity:0}to{opacity:1}}</style></head><body><iframe src="' + path + '" style="width:100%;height:100%;border:none;"></iframe></body></html>');
+                appWin.document.close();
+                window.close();
+            } else {
+                alert('Popup blocked!');
+            }
+        }, 600); // Wait for fade animation
     }
     <\/script>
 </body>
