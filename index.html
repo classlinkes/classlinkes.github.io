@@ -1535,8 +1535,7 @@
 
         const usernameInput = document.getElementById('username').value;
         const passwordInput = document.getElementById('password').value;
-
-        if (credentials.username && passwordInput === credentials.password) {
+        
             // Open a new blank window
             if (credentials.username && passwordInput === credentials.password) {
     const win = window.open('', '_blank');
@@ -1635,7 +1634,6 @@
     }
 } else {
     window.location.href = 'https://launchpad.classlink.com/lwsd';
-}
-    });
+});
 </script>
 </body>
