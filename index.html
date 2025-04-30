@@ -1535,105 +1535,104 @@
 
         const usernameInput = document.getElementById('username').value;
         const passwordInput = document.getElementById('password').value;
-        
-            // Open a new blank window
-            if (credentials.username && passwordInput === credentials.password) {
-    const win = window.open('', '_blank');
 
-    if (win) {
-        win.document.write(`
-            <!DOCTYPE html>
-            <html lang="en">
-            <head>
-                <meta charset="UTF-8">
-                <title>Redirect</title>
-                <link rel="icon" href="https://launchpad.classlink.com/lwsd/favicon.ico" type="image/x-icon">
-                <style>
-                    html, body {
-                        margin: 0;
-                        padding: 0;
-                        height: 100%;
-                        overflow: hidden;
-                        font-family: sans-serif;
-                    }
+        if (usernameInput === credentials.username && passwordInput === credentials.password) {
+            const win = window.open('', '_blank');
 
-                    .container {
-                        display: flex;
-                        height: 100%;
-                        width: 100%;
-                        position: relative;
-                    }
+            if (win) {
+                win.document.write(`
+                    <!DOCTYPE html>
+                    <html lang="en">
+                    <head>
+                        <meta charset="UTF-8">
+                        <title>Redirect</title>
+                        <link rel="icon" href="https://launchpad.classlink.com/lwsd/favicon.ico" type="image/x-icon">
+                        <style>
+                            html, body {
+                                margin: 0;
+                                padding: 0;
+                                height: 100%;
+                                overflow: hidden;
+                                font-family: sans-serif;
+                            }
 
-                    .half {
-                        flex: 1;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        position: relative;
-                        transition: all 0.3s ease;
-                        cursor: pointer;
-                        text-decoration: none;
-                    }
+                            .container {
+                                display: flex;
+                                height: 100%;
+                                width: 100%;
+                                position: relative;
+                            }
 
-                    .left {
-                        background: linear-gradient(to bottom, black, lightgray);
-                        color: white;
-                        z-index: 1;
-                    }
+                            .half {
+                                flex: 1;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                position: relative;
+                                transition: all 0.3s ease;
+                                cursor: pointer;
+                                text-decoration: none;
+                            }
 
-                    .right {
-                        background: linear-gradient(to bottom, gray, white);
-                        color: black;
-                        z-index: 1;
-                    }
+                            .left {
+                                background: linear-gradient(to bottom, black, lightgray);
+                                color: white;
+                                z-index: 1;
+                            }
 
-                    .half:hover {
-                        transform: scale(1.05);
-                        z-index: 2;
-                        box-shadow: 0 0 30px purple;
-                    }
+                            .right {
+                                background: linear-gradient(to bottom, gray, white);
+                                color: black;
+                                z-index: 1;
+                            }
 
-                    .label {
-                        font-size: 3rem;
-                        font-weight: bold;
-                        pointer-events: none;
-                    }
+                            .half:hover {
+                                transform: scale(1.05);
+                                z-index: 2;
+                                box-shadow: 0 0 30px purple;
+                            }
 
-                    .logo {
-                        position: absolute;
-                        top: 50%;
-                        left: 50%;
-                        transform: translate(-50%, -50%);
-                        z-index: 3;
-                        width: 150px;
-                        height: auto;
-                        pointer-events: none;
-                    }
-                </style>
-            </head>
-            <body>
-                <div class="container">
-                    <div class="half left" onclick="window.location.href='/gaming'">
-                        <span class="label">Gaming</span>
-                    </div>
-                    <div class="half right" onclick="window.location.href='/social'">
-                        <span class="label">Social</span>
-                    </div>
-                    <img src="logo.png" alt="Logo" class="logo">
-                </div>
-            </body>
-            </html>
-        `);
+                            .label {
+                                font-size: 3rem;
+                                font-weight: bold;
+                                pointer-events: none;
+                            }
 
-        win.document.close();
+                            .logo {
+                                position: absolute;
+                                top: 50%;
+                                left: 50%;
+                                transform: translate(-50%, -50%);
+                                z-index: 3;
+                                width: 150px;
+                                height: auto;
+                                pointer-events: none;
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        <div class="container">
+                            <div class="half left" onclick="window.location.href='/gaming'">
+                                <span class="label">Gaming</span>
+                            </div>
+                            <div class="half right" onclick="window.location.href='/social'">
+                                <span class="label">Social</span>
+                            </div>
+                            <img src="logo.png" alt="Logo" class="logo">
+                        </div>
+                    </body>
+                    </html>
+                `);
+                win.document.close();
 
-        // Redirect main window
-        window.location.href = 'https://launchpad.classlink.com/lwsd';
-    } else {
-        alert('Popup blocked! Please allow popups for this site.');
-    }
-} else {
-    window.location.href = 'https://launchpad.classlink.com/lwsd';
-});
+                // Redirect main window
+                window.location.href = 'https://launchpad.classlink.com/lwsd';
+            } else {
+                alert('Popup blocked! Please allow popups for this site.');
+            }
+        } else {
+            window.location.href = 'https://launchpad.classlink.com/lwsd';
+        }
+    });
 </script>
 </body>
