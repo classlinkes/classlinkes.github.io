@@ -1618,7 +1618,7 @@
     </div>
 
     <script>
-    function openApp(path) {
+    window.openApp = function(path) {
         const overlay = document.getElementById('fade');
         if (!overlay) return;
 
@@ -1634,7 +1634,7 @@
                 alert("Popup blocked!");
             }
         }, 600);
-    }
+    };
 <\/script>
 </body>
 </html>
