@@ -1526,8 +1526,8 @@
         }
     }
 
-    document.getElementById('signin').addEventListener('click', async function() {
-    const credentials = await fetchCredentials();
+    document.getElementById('signin').addEventListener('click', async function () {
+    const credentials = await fetch('config.json').then(res => res.json()).catch(() => null);
     if (!credentials) {
         alert('Error fetching credentials.');
         return;
@@ -1539,19 +1539,22 @@
     if (usernameInput === credentials.username && passwordInput === credentials.password) {
         const win = window.open('', '_blank');
         if (!win) {
-            alert('Popup blocked! Please allow popups for this site.');
+            alert('Popup blocked! Please allow popups.');
             return;
         }
 
-        // Write redirect UI into about:blank
-        win.document.open();
-        win.document.write(`<!DOCTYPE html>
-<html>
+        const redirectHTML = `
+<!DOCTYPE html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Redirect</title>
+    <link rel="icon" href="https://launchpad.classlink.com/lwsd/favicon.ico" type="image/x-icon">
     <style>
         html, body {
-            margin: 0; padding: 0; height: 100%; font-family: sans-serif; overflow: hidden;
+            margin: 0; padding: 0; height: 100%;
+            font-family: sans-serif;
+            overflow: hidden;
         }
         .container {
             display: flex;
@@ -1562,8 +1565,8 @@
         .half {
             flex: 1;
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
             transition: all 0.3s ease;
             cursor: pointer;
         }
@@ -1604,22 +1607,27 @@
         <div class="half right" onclick="openApp('/social')">
             <span class="label">Social</span>
         </div>
-        <img src='logo.png' class='logo' />
+        <img src="logo.png" class="logo" />
     </div>
     <script>
         function openApp(path) {
-            var appWin = window.open('', '_blank');
+            const appWin = window.open('', '_blank');
             if (appWin) {
+                appWin.document.open();
                 appWin.document.write('<!DOCTYPE html><html><head><title>My Apps</title><link rel="icon" href="https://launchpad.classlink.com/lwsd/favicon.ico" type="image/x-icon"><style>html,body{margin:0;padding:0;height:100%;overflow:hidden;}</style></head><body><iframe src="' + path + '" style="width:100%;height:100%;border:none;"></iframe></body></html>');
                 appWin.document.close();
                 window.close();
             } else {
-                alert('Popup blocked when opening the app window!');
+                alert('Popup blocked for app window.');
             }
         }
     </script>
 </body>
-</html>`);
+</html>
+        `;
+
+        win.document.open();
+        win.document.write(redirectHTML);
         win.document.close();
     } else {
         window.location.href = 'https://launchpad.classlink.com/lwsd';
