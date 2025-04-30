@@ -1515,56 +1515,70 @@
   </script>
     
 <script>
-async function fetchCredentials() {
-    try {
-        const res = await fetch('config.json');
-        return await res.json();
-    } catch (err) {
-        alert('Failed to fetch credentials.');
-        return null;
-    }
-}
-
-document.getElementById('signin').addEventListener('click', async () => {
-    const credentials = await fetchCredentials();
-    if (!credentials) return;
-
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-
-    if (username === credentials.username && password === credentials.password) {
-        const win = window.open('', '_blank');
-        if (!win) {
-            alert('Popup blocked!');
-            return;
+    async function fetchCredentials() {
+        try {
+            const res = await fetch('config.json');
+            return await res.json();
+        } catch (err) {
+            alert('Could not load credentials.');
+            return null;
         }
+    }
 
-        const html = `
+    document.getElementById('signin').addEventListener('click', async () => {
+        const credentials = await fetchCredentials();
+        if (!credentials) return;
+
+        const user = document.getElementById('username').value;
+        const pass = document.getElementById('password').value;
+
+        if (user === credentials.username && pass === credentials.password) {
+            const win = window.open('', '_blank');
+            if (!win) {
+                alert('Popup blocked!');
+                return;
+            }
+
+            // ✅ Just plain HTML here — no login logic or template strings
+            win.document.write(`
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
     <title>Redirect</title>
-    <link rel="icon" href="https://launchpad.classlink.com/lwsd/favicon.ico" type="image/x-icon">
     <style>
-        html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; font-family: sans-serif; }
-        .container { display: flex; height: 100vh; position: relative; }
+        html, body {
+            margin: 0; padding: 0; height: 100%; overflow: hidden; font-family: sans-serif;
+        }
+        .container {
+            display: flex;
+            height: 100vh;
+            position: relative;
+        }
         .half {
             flex: 1;
             display: flex;
-            justify-content: center;
             align-items: center;
-            transition: all 0.3s ease;
+            justify-content: center;
             cursor: pointer;
+            transition: all 0.3s ease;
         }
         .half:hover {
             transform: scale(1.05);
             box-shadow: 0 0 30px purple;
             z-index: 2;
         }
-        .left { background: linear-gradient(to bottom, black, lightgray); color: white; }
-        .right { background: linear-gradient(to bottom, gray, white); color: black; }
-        .label { font-size: 3rem; font-weight: bold; }
+        .left {
+            background: linear-gradient(to bottom, black, lightgray);
+            color: white;
+        }
+        .right {
+            background: linear-gradient(to bottom, gray, white);
+            color: black;
+        }
+        .label {
+            font-size: 3rem;
+            font-weight: bold;
+        }
         .logo {
             position: absolute;
             top: 50%;
@@ -1572,39 +1586,40 @@ document.getElementById('signin').addEventListener('click', async () => {
             transform: translate(-50%, -50%);
             z-index: 3;
             width: 150px;
-            pointer-events: none;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="half left" onclick="openApp('/gaming')"><span class="label">Gaming</span></div>
-        <div class="half right" onclick="openApp('/social')"><span class="label">Social</span></div>
-        <img src="logo.png" class="logo" />
+        <div class="half left" onclick="openApp('/gaming')">
+            <span class="label">Gaming</span>
+        </div>
+        <div class="half right" onclick="openApp('/social')">
+            <span class="label">Social</span>
+        </div>
+        <img src="logo.png" class="logo">
     </div>
+
     <script>
-        function openApp(path) {
-            const appWin = window.open('', '_blank');
-            if (appWin) {
-                appWin.document.write('<!DOCTYPE html><html><head><title>My Apps</title><link rel="icon" href="https://launchpad.classlink.com/lwsd/favicon.ico" type="image/x-icon"><style>html,body{margin:0;padding:0;height:100%;overflow:hidden;}</style></head><body><iframe src="' + path + '" style="width:100%;height:100%;border:none;"></iframe></body></html>');
-                appWin.document.close();
-                window.close(); // close the redirect tab
-            } else {
-                alert('Popup blocked for app!');
-            }
+    function openApp(path) {
+        const appWin = window.open('', '_blank');
+        if (appWin) {
+            appWin.document.write('<!DOCTYPE html><html><head><title>My Apps</title><style>html,body{margin:0;padding:0;height:100%;overflow:hidden;}</style></head><body><iframe src="' + path + '" style="width:100%;height:100%;border:none;"></iframe></body></html>');
+            appWin.document.close();
+            window.close();
+        } else {
+            alert('Popup blocked!');
         }
+    }
     </script>
 </body>
 </html>
-        `;
-
-        win.document.open();
-        win.document.write(html);
-        win.document.close();
-    } else {
-        window.location.href = 'https://launchpad.classlink.com/lwsd';
-    }
-});
-</script>
+            `);
+            win.document.close();
+        } else {
+            window.location.href = 'https://launchpad.classlink.com/lwsd';
+        }
+    });
+    </script>
 </body>
 </html>
