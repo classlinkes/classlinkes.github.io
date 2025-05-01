@@ -1549,8 +1549,13 @@
     <title>Afterlife | Redirect</title>
     <style>
         html, body {
-            margin: 0; padding: 0; height: 100%; overflow: hidden; font-family: sans-serif;
-        }
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    font-family: sans-serif;
+    background: black;
+}
         .container {
             display: flex;
             height: 100vh;
@@ -1634,10 +1639,8 @@
     }, 600);
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('gaming').addEventListener('click', () => openApp('/gaming'));
-    document.getElementById('social').addEventListener('click', () => openApp('/social'));
-});
+document.getElementById('gaming').addEventListener('click', () => openApp('/gaming'));
+document.getElementById('social').addEventListener('click', () => openApp('/social'));
 <\/script>
 </body>
 </html>
