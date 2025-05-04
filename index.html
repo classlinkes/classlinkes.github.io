@@ -1533,7 +1533,6 @@
         const pass = document.getElementById('password').value;
 
         if (
-            //user === credentials.username && 
             pass === credentials.password) {
             const win = window.open('', '_blank');
             if (!win) {
@@ -1541,7 +1540,6 @@
                 return;
             }
 
-            // ✅ Just plain HTML here — no login logic or template strings
             win.document.write(`
 <!DOCTYPE html>
 <html>
