@@ -216,17 +216,19 @@
     <div class="loader" id="loader"></div>
     <div class="click-text" id="clickText">Click anywhere to enter</div>
     <script>
-      setTimeout(function () {
-        document.getElementById("loader").style.display = "none";
-        var txt = document.getElementById("clickText");
-        txt.classList.add("visible");
-        document.body.style.cursor = "pointer";
-        document.body.addEventListener("click", function () {
-          window.open("/hubblemain", "_blank");
-          window.close();
-        });
-      }, 5000);
-    </\script>
+  setTimeout(function() {
+    document.getElementById("loader").style.display = "none";
+    var txt = document.getElementById("clickText");
+    txt.classList.add("visible");
+    document.body.style.cursor = "pointer";
+
+    document.body.addEventListener("click", function() {
+      var siteWin = window.open("about:blank", "_blank");
+      siteWin.location.href = "/hubblemain";
+      window.close();
+    });
+  }, 5000);
+</\script>
   </body>
 </html>`);
 
